@@ -231,13 +231,21 @@ public class Client{
             pw.flush();
             pw.println("***");
             pw.flush();
-            rep = "";
-            while(!rep.equals("***")){
-              rep = "";
-              rep += br.readLine();
-              if(!rep.equals("***")){
-                System.out.print("->" + rep + "\n");
-              }
+            rep = br.readLine();
+		if (rep.equals("ERROR")){
+			while (!rep.equals("***")){
+                		System.out.print("->" + rep + "\n");
+              			rep = br.readLine();
+			}
+              	}
+		else{
+			String	IpUdp = rep;
+			int	PortUdp = Integer.parseInt(br.readLine());
+			String	loginUdp = br.readLine();
+			Thread	ComUdp = new Thread(new ClientThread(IpUdp, PortUdp, loginUdp));
+
+			ComUdp.start();	
+		}
             }
             break;
 
